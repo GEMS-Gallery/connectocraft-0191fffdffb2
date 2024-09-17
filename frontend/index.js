@@ -32,18 +32,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   async function loadContacts() {
     const contacts = await backend.getAllContacts();
     contactList.innerHTML = '';
-    contacts.forEach(contact => {
-      const contactItem = document.createElement('div');
-      contactItem.className = 'contact-item';
-      contactItem.innerHTML = `
-        <p><strong>Name:</strong> ${contact.name}</p>
-        <p><strong>Phone:</strong> ${contact.phone}</p>
-        <p><strong>Email:</strong> ${contact.email}</p>
-        <button onclick="editContact(${contact.id})">Edit</button>
-        <button onclick="deleteContact(${contact.id})">Delete</button>
-      `;
-      contactList.appendChild(contactItem);
-    });
+    if (contacts.length === 0) {
+      contactList.innerHTML = '<p>No contacts found.</p>';
+    } else {
+      contacts.forEach(contact => {
+        const contactItem = document.createElement('div');
+        contactItem.className = 'contact-item';
+        contactItem.innerHTML = `
+          <p><strong>Name:</strong> ${contact.name}</p>
+          <p><strong>Phone:</strong> ${contact.phone}</p>
+          <p><strong>Email:</strong> ${contact.email}</p>
+          <button onclick="editContact(${contact.id})">Edit</button>
+          <button onclick="deleteContact(${contact.id})">Delete</button>
+        `;
+        contactList.appendChild(contactItem);
+      });
+    }
   }
 
   window.editContact = async (id) => {
