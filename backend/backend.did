@@ -1,0 +1,14 @@
+type Contact = 
+ record {
+   email: text;
+   id: nat;
+   name: text;
+   phone: text;
+ };
+service : {
+  addContact: (text, text, text) -> (nat);
+  deleteContact: (nat) -> (bool);
+  getAllContacts: () -> (vec Contact) query;
+  getContact: (nat) -> (opt Contact) query;
+  updateContact: (nat, text, text, text) -> (bool);
+}
